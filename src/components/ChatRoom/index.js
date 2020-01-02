@@ -4,16 +4,9 @@ import axios from 'axios';
 import CreateMessage from '../CreateMessage';
 import ListMessage from '../ListMessage';
 
-
-
-
 /*
 **	Composant room regroupant la liste de messages ainsi que le formulaire pour en poster de nouveaux. Ce composant est aussi charger de la gestion / récuparation des données de la room
-
-**  @sendMessage : Function => fonction premettant l'envoi de message au composant parent
-**	@placeholer : String => Affiche le placeholer du champ input
 */
-
 
 const Room = (props) => {
 	const [room_id, setRoom_id] = useState(props.roomID);
@@ -36,9 +29,11 @@ const Room = (props) => {
 	}
 
 	*/
+
+	// Si les states sont vides, on charge des données
 	if(!users.length && !messages.length) {
-		axios.get('/data/room.json') // Remplacement par des donnée figé mais on peut imaginer un call API d'une ROOMID dans les props
-		.then( response => {
+		axios.get('/data/room.json') //Remplacement par des donnée figé mais on peut imaginer un call API d'une ROOMID dans les props
+		.then(response => {
 			setRoom_id(response.data.id);
 			setUsers(response.data.users);
 			setMessages(response.data.messages);
@@ -53,6 +48,12 @@ const Room = (props) => {
 		}).toLowerCase();
 	};
 
+	/*
+		Fonction pour ajouter un message. 
+		@message => String : Valeur du message
+		@is_private => Bool : si le message est privé ou non
+	*/
+
 	const addNewMessage = (message, is_private) => {
 		const newMessage = {
 			'_id': objectId, 
@@ -63,7 +64,7 @@ const Room = (props) => {
 		setMessages([...messages, newMessage]);
 	}
 
-	// Objet Room
+	//Objet Room
 	const room = {
 		'ID': room_id,
 		'users': users,
@@ -77,6 +78,5 @@ const Room = (props) => {
 		</div>
 	);
 }
-
 
 export default Room;

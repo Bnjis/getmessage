@@ -6,11 +6,9 @@ import UserCard from '../UserCard';
 import './style.scss';
 
 /*
-**	Liste des message d'une room, une room est un channel créer entre une ou plusieurs personnes avec un ID unique, des membre des des messages.  
-**  @sendMessage : Function => fonction premettant l'envoi de message au composant parent
-**	@placeholer : String => Affiche le placeholer du champ input
+**	Liste des message d'une room, une room est un channel créer entre une ou plusieurs personnes avec un ID unique, des membre des des messages.
+** @room Object => Objet room donnant les informations d'un room ( ID, users & messages )
 */
-
 
 class ListMessages extends Component{
 
@@ -25,9 +23,10 @@ class ListMessages extends Component{
 		}
 		
 	}
- 
+
+	 // On rafraichis le state à l'update des props	
 	componentWillReceiveProps(props) {
-		// On rafraichis l'état à l'update des props
+		
 		if(this.state.roomID !== props.room.ID) {
 			this.setState({
 				roomID: props.room.ID
@@ -52,9 +51,8 @@ class ListMessages extends Component{
 		this.scrollBottom();
 	}
 
+	// Retourne le prénom + nom du user en fonction de l'id, si c'est l'utilisateur courant, retourne "Vous";
 	getUserByID = (id) => {
-		// Retourne le prénom + nom du user en fonction de l'id, si c'est l'utilisateur courant, retourne "Vous";
-
 		if(id === 1) {
 			return "Vous";
 		}
@@ -69,6 +67,7 @@ class ListMessages extends Component{
 		}
 	}
 
+	// fonction permettant de fixer le scroll en bas
 	scrollBottom = () => {
 		const messagesList = document.querySelector('.list--messages--wrapper');
 		messagesList.scrollTop = messagesList.scrollHeight;

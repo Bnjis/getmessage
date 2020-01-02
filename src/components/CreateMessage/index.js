@@ -22,10 +22,11 @@ class CreateMessage extends Component{
 	}
 
 	componentDidUpdate() {
-		// Focus automatique à l'affichage du composant.
+		// Focus automatique à l'update du composant.
 		this.input.current.focus();
 	}
-
+	
+	// Set le state en fonction de l'input qui trigger le change.
 	handleChange(event) {
 		const target = event.target;
 		const name = target.name;
@@ -35,18 +36,21 @@ class CreateMessage extends Component{
 
 	handleSubmit(event) {
 		event.preventDefault();
-		// on envoi l'event, la valeurs et la valeur de la checkbox
+
+		// Si le message n'est pas vide
 		if(this.state.message !== '') {
+			// on envoi l'event, la valeurs et la valeur de la checkbox
 			this.props.sendMessage(event, this.state.message, this.state.isPrivate);
 			this.setState({message: '', hasError: false});
 		} else {
+			// sinon one lance une erreur
 			this.setState({hasError: true});
 		}
 	}
 
 	render() {
 		const { placeholder } = this.props;
-		const { hasError } = this.state;
+		const { hasError } = this.state; 
 		return (
 		<form className="message--form" onSubmit={this.handleSubmit}>
 			<input type="text" name="message" placeholder={placeholder} autoComplete="off" ref={this.input} value={this.state.message} onChange={this.handleChange} className={`${hasError ? 'error' : ''}`}/>
