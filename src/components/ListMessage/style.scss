@@ -1,0 +1,55 @@
+.list--messages--wrapper {
+	display: flex;
+	flex-direction: row;
+	max-height: 75vh;
+	overflow: auto;
+	position: relative;
+	padding-left: 200px;
+
+	> div {
+		padding: 20px;
+	}
+
+	.list--users {
+		max-width: 200px;
+		background-color: #dadada;
+		position: fixed;
+		left: 0;
+		top: 0;
+		bottom: calc(25vh);
+	}
+
+
+	.item--message  {
+		padding: 20px;
+		background-color: #fff;
+		margin-bottom: 25px;
+		width: 40%;
+		clear: both;
+
+		&.user--message {
+			float: right;
+			
+		}
+
+		
+		&.private {
+			&:before {
+				content:"Ce message est privé et n'est visible que par les utilisateurs sélectionnés";
+				display: block;
+				font-size: 10px;
+				margin-bottom: 10px;
+			}
+			background-color: #e03b58;
+			color: #fff;
+		}
+
+		span {
+			display: block;
+			font-weight: 700;
+			font-style: italic;
+			font-size: 12px;
+		}
+
+	}
+}
